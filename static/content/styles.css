@@ -5,8 +5,8 @@
 }
 
 .container2 {
-    background-color: #333;
-    padding: 20px;
+    background-color: rgb(246, 200, 252);
+    padding: 15px;
     margin-bottom: 20px;
     color: white;
     font-family: "Arial", sans-serif;
@@ -23,7 +23,7 @@
     border-style: solid;
     border-color: rgb(255, 20, 147);
     border-image: initial;
-    min-width: 200px;
+    min-width: 400px;
 }
 
 input,
