@@ -10,6 +10,7 @@
     margin-bottom: 20px;
     color: white;
     font-family: "Arial", sans-serif;
+    text-align:center;
 }
 
 
@@ -29,7 +30,7 @@
 input,
 select,
 textarea {
-    max-width: 35px;
+    min-width: 50px;
 }
 
 .field-validation-error{
@@ -113,7 +114,11 @@ input[type="checkbox"].input-validation-error {
     letter-spacing: 0.05em;
 }
 
-.description{
+.small-input2 {
+    width: 46px;
+}
+
+.description {
     height: 209px;
     left: 633px;
     top: 246px;
@@ -155,7 +160,7 @@ td {
     background-color: #F6C8FC;
 }
 
-.th {
+th {
     border: 1px solid #FF1493;
     padding: 3px;
     text-align: center;
@@ -173,10 +178,10 @@ td {
     color: white;
 }
 
-h12 {
+h1 {
     color: #333;
 }
 
-p2 {
+p {
     color: #666;
 }

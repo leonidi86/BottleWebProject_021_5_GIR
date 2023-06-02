@@ -151,7 +151,18 @@ input[type="checkbox"].input-validation-error {
     border: 2px solid black;
     background: lightgreen;
 }
+.table2 {
+    width: 100%;
+    border-collapse: collapse;
+}
 
+    .table2 td,
+    .table2 th {
+        border: 1px solid #FF1493;
+        padding: 3px;
+        text-align: center;
+        background-color: #F6C8FC;
+    }
 td {
     border: 1px solid black;
     padding: 8px;

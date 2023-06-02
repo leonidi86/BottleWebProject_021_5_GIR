@@ -17,18 +17,16 @@
 
     <form id="dijkstra-form" class="lead2">
         <label for="num-vertices">Количество вершин:</label>
-        <br>
         <input type="number" id="num-vertices" name="num-vertices" class="small-input2" min="2" max="20" required>
         <br>
         
         <label for="distance-matrix">Матрица расстояний:</label>
         <br>
-        <table class="table2" id="matrix-table"></table>
+        <table class="table2" id="matrix-table"  class="lead2"></table>
         <br>
         
         <label for="source-vertex">Исходная вершина:</label>
-        <br>
-        <input type="text" id="source-vertex" class="smaller-input2" name="source-vertex" required>
+        <input type="text" id="source-vertex" name="source-vertex"  class="small-input2" required>
         <br><br>
         
         <input type="submit" value="Найти кратчайшие пути" class="custom-button2">
@@ -37,7 +35,8 @@
 
     <div id="result"></div>
    
+    <script src="alg_dijkstra1.js"></script>
     <script src="alg_dijkstra2.js"></script>
-    <script src="alg_dijkstra2.js"></script>
+</div>
 </body>
 </html>

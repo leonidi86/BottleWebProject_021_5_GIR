@@ -14,7 +14,7 @@
         <input type="number" id="inputNumber" min="2" max="20">
         <button onclick="runFloydAlgorithm()">Создать матрицу</button></p>
     <br>
-    <div class="lead2" id="tableContainer"></div>
+    <div class="lead" id="tableContainer"></div>
     </div>
 </div>
 
