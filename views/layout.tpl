@@ -21,7 +21,7 @@
                     <a class = "nav__link" href="/"> <img src="/static/images/logo.png" alt="GraphsSite"> </a>
                     <a class="nav__link" href="/Task1">Алгоритм Прима</a>
                     <a class="nav__link" href="/Task2">Алгоритм Дейкстры</a>
-                    <a class="nav__link" href="/test3">Алгоритм Флойда</a>
+                    <a class="nav__link" href="/Task3">Алгоритм Флойда</a>
                     <a class="nav__link" href="/contact">Об авторах</a>
                 </nav>
             </div>

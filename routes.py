@@ -55,8 +55,8 @@ def about():
         year=datetime.now().year
     )
 
-@route('/test3')
-@view('test3')
+@route('/Task3')
+@view('task3')
 def about():
 
     return dict(
