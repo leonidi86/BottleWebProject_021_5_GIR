@@ -37,6 +37,7 @@
     <div id="result"></div>
    
     <script src="alg_dijkstra1.js"></script>
+    <script src="alg_dijkstra2.js"></script>
 </div>
 </body>
 </html>
