@@ -4,17 +4,17 @@
 
 <div class="row">
   <div class="col-md-3">
-    <img src="\static\images\zhenya.jpg" width="400" height="550">
+    <img src="\static\images\zhenya.jpg" width="450" height="500">
     <p class="lead1" style="text-align: center;">Расстрыгина Евгения</p>
   </div>
   
   <div class="col-md-3">
-    <img src="\static\images\lenya.jpg" width="400" height="550">
+    <img src="\static\images\lenya.jpg" width="450" height="500">
     <p class="lead1" style="text-align: center;">Иванов Леонид</p>
   </div>
   
   <div class="col-md-3">
-    <img src="\static\images\olya.jpg" width="400" height="550">
+    <img src="\static\images\olya.jpg" width="450" height="500">
     <p class="lead1" style="text-align: center;">Григорьева Ольга</p>
   </div>
 </div>
