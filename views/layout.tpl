@@ -18,7 +18,7 @@
         <div class="container">
             <div class="header__inner">
                 <nav class="nav">
-                                <a class = "nav__link" href="/"> <img src="/static/images/logo.png" alt="GraphsSite"> </a>
+                    <a class = "nav__link" href="/"> <img src="/static/images/logo.png" alt="GraphsSite"> </a>
                     <a class="nav__link" href="/Task1">Алгоритм Прима</a>
                     <a class="nav__link" href="/Task2">Алгоритм Дейкстры</a>
                     <a class="nav__link" href="/test3">Алгоритм Флойда</a>
@@ -27,11 +27,9 @@
             </div>
         </div>
     </header>
-
-        
+            
         {{!base}}
                    
-    
     <script src="/static/scripts/jquery-1.10.2.js"></script>
     <script src="/static/scripts/bootstrap.js"></script>
     <script src="/static/scripts/respond.js"></script>
