@@ -40,8 +40,5 @@
     </p>
   </div>
 </div>
-
-<p class="lead1">The site was prepared on the instructions of educational practice with the aim of demonstrating knowledge.</p>
-
 </div>
 
