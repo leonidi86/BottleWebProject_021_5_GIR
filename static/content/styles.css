@@ -147,7 +147,7 @@ input[type="checkbox"].input-validation-error {
     background: #F6C8FC;
 }
 
-td2 {
+td {
     border: 1px solid #FF1493;
     padding: 3px;
     text-align: center;
@@ -155,7 +155,7 @@ td2 {
     background-color: #F6C8FC;
 }
 
-.th2 {
+.th {
     border: 1px solid #FF1493;
     padding: 3px;
     text-align: center;
