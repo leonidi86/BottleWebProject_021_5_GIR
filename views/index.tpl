@@ -14,6 +14,7 @@
         <p class="lead1">Алгоритм Прима</p>
         <p><a class="btn btn-default" style="background: #F6C8FC;" href=Task1>Начать</a></p>
     </div>
+
     <div class="col-md-44">
         <p class="lead1">Алгоритм Дейкстры</p>
         <p><a class="btn btn-default" style="background: #F6C8FC;" href=Task2>Начать</a></p>
