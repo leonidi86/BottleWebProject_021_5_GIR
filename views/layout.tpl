@@ -7,9 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
 
-
     <script src="/static/scripts/alg_floyd.js"></script>
-
     <script src="/static/scripts/alg_dijkstra1.js"></script>
     <script src="/static/scripts/alg_dijkstra2.js"></script>
 </head>

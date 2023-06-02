@@ -17,7 +17,7 @@ body {
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 150px;
 }
 
 .field-validation-error {
@@ -164,13 +164,13 @@ input[type="checkbox"].input-validation-error {
         background-color: #F6C8FC;
     }
 td {
-    border: 1px solid black;
+    border: 3px solid #F6BBC3;
     padding: 8px;
     text-align: center;
 }
 
 .th {
-    border: 1px solid black;
+    border: 3px solid #F6BBC3;
     padding: 8px;
     text-align: center;
     background-color: darkgreen;
@@ -188,7 +188,7 @@ table {
 
 th,
 td {
-    border: 1px solid black;
+    border: 3px solid #F6BBC3;
     padding: 5px;
     text-align: center;
 }

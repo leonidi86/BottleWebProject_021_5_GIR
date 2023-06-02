@@ -11,7 +11,7 @@
     tableContainer.innerHTML = ""; // Очищаем содержимое контейнера
 
     var table = document.createElement("table");
-    table.style.border = "1px solid pink"; // Set table border color to pink
+    table.style.border = "3px solid pink"; // Set table border color to pink
 
     var inputs = []; // Массив для хранения полей ввода
 
