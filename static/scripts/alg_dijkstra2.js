@@ -1,12 +1,6 @@
 // Функция для создания таблицы ввода матрицы расстояний
 function createMatrixTable(numVertices) {
     var matrixTable = document.getElementById("matrix-table");
-    if (!matrixTable) {
-        matrixTable = document.createElement("table");
-        matrixTable.id = "matrix-table";
-        document.getElementById("dijkstra-form").appendChild(matrixTable);
-    }
-
 
     // Очищаем таблицу
     matrixTable.innerHTML = "";
@@ -35,6 +29,9 @@ function createMatrixTable(numVertices) {
 
         matrixTable.appendChild(row);
     }
+
+    // Добавляем класс "pink-table" к таблице
+    matrixTable.classList.add("pink-table");
 }
 
 // Обработчик события отправки формы

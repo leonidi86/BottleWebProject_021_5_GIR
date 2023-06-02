@@ -1,57 +1,51 @@
-// Функция для решения алгоритма Дейкстры
-function dijkstra(matrix, sourceVertex) {
-    var numVertices = matrix.length;
+// Функция для создания таблицы ввода матрицы расстояний
+function createMatrixTable() {
+    // Получаем значения формы
+    var numVertices = parseInt(document.getElementById("num-vertices").value);
+    var matrixTable = document.getElementById("matrix-table");
 
-    // Инициализируем массив кратчайших путей
-    var shortestPaths = [];
+    // Очищаем таблицу
+    matrixTable.innerHTML = "";
 
+    // Создаем заголовок таблицы
+    var headerRow = document.createElement("tr");
+    var headerCell = document.createElement("th");
+    headerCell.innerText = "Матрица расстояний";
+    headerCell.colSpan = numVertices + 1;
+    headerRow.appendChild(headerCell);
+    matrixTable.appendChild(headerRow);
+
+    // Создаем строки и ячейки таблицы
     for (var i = 0; i < numVertices; i++) {
-        shortestPaths[i] = {
-            distance: Infinity,
-            path: []
-        };
-    }
+        var row = document.createElement("tr");
 
-    // Массив для отслеживания посещенных вершин
-    var visited = [];
+        for (var j = 0; j <= numVertices; j++) {
+            var cell = document.createElement("td");
 
-    // Устанавливаем начальную вершину
-    shortestPaths[sourceVertex].distance = 0;
-
-    // Цикл по всем вершинам
-    for (var i = 0; i < numVertices; i++) {
-        // Находим вершину с минимальным расстоянием
-        var currentVertex = findMinDistanceVertex(shortestPaths, visited);
-
-        // Помечаем вершину как посещенную
-        visited[currentVertex] = true;
-
-        // Обновляем расстояния до смежных вершин
-        for (var j = 0; j < numVertices; j++) {
-            if (!visited[j] && matrix[currentVertex][j] > 0) {
-                var newDistance = shortestPaths[currentVertex].distance + matrix[currentVertex][j];
-                if (newDistance < shortestPaths[j].distance) {
-                    shortestPaths[j].distance = newDistance;
-                    shortestPaths[j].path = shortestPaths[currentVertex].path.concat(j);
-                }
+            if (j === 0) {
+                // Создаем ячейку с номером вершины
+                var vertexNumber = i + 1;
+                cell.innerText = "V" + vertexNumber;
+            } else {
+                // Создаем ячейку с полем ввода расстояния
+                var input = document.createElement("input");
+                input.type = "number";
+                input.name = "distance-cell-" + i + "-" + (j - 1);
+                input.required = true;
+                cell.appendChild(input);
             }
+
+            row.appendChild(cell);
         }
+
+        matrixTable.appendChild(row);
     }
 
-    return shortestPaths;
-}
+    // Добавляем класс "pink-table" к таблице
+    matrixTable.classList.add("pink-table");
 
-// Функция для поиска вершины с минимальным расстоянием
-function findMinDistanceVertex(shortestPaths, visited) {
-    var minDistance = Infinity;
-    var minDistanceVertex = -1;
-
-    for (var i = 0; i < shortestPaths.length; i++) {
-        if (!visited[i] && shortestPaths[i].distance < minDistance) {
-            minDistance = shortestPaths[i].distance;
-            minDistanceVertex = i;
-        }
-    }
-
-    return minDistanceVertex;
+    // Добавляем таблицу в контейнер
+    var resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = "";
+    resultDiv.appendChild(matrixTable);
 }

@@ -25,6 +25,7 @@
     border-color: rgb(255, 20, 147);
     border-image: initial;
     min-width: 400px;
+    
 }
 
 input,
@@ -146,11 +147,18 @@ input[type="checkbox"].input-validation-error {
     transition: opacity ease-in-out .2s;
 }
 
-.table2 {
-    width: 26px;
-    border: 2px solid black;
-    background: #F6C8FC;
+table{
+    width: 100%;
+    border-collapse: collapse;
 }
+
+    .table td,
+    .table th {
+        border: 1px solid #FF1493;
+        padding: 3px;
+        text-align: center;
+        background-color: #F6C8FC;
+    }
 
 td {
     border: 1px solid #FF1493;
@@ -177,11 +185,16 @@ th {
     line-height: 1.4;
     color: white;
 }
-
-h1 {
-    color: #333;
+.pink-table {
+    background-color: pink;
+}
+.pink-table {
+    border-collapse: collapse;
+    width: 100%;
 }
 
-p {
-    color: #666;
-}
+    .pink-table th, .pink-table td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+    }
