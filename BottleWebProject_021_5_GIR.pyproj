@@ -47,13 +47,16 @@
     <Content Include="static\content\bootstrap.min.css" />
     <Content Include="static\content\site.css" />
     <Content Include="static\content\styles.css" />
+    <Content Include="static\images\evnrss.png" />
     <Content Include="static\images\fon.png" />
     <Content Include="static\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="static\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="static\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="static\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="static\images\icon_vk.png" />
     <Content Include="static\images\ivanov.jpg" />
     <Content Include="static\images\lenya.jpg" />
+    <Content Include="static\images\new_ol.jpg" />
     <Content Include="static\images\olya.jpg" />
     <Content Include="static\images\logo.png" />
     <Content Include="static\images\zhenya.jpg" />
