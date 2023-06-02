@@ -4,7 +4,7 @@ app = Bottle()
 
 @app.route('/')
 def index():
-    return template('test3.tpl', result='')
+    return template('task3.tpl', result='')
 
 def floyd_warshall(graph):
     n = len(graph)

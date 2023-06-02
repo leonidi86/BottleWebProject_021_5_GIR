@@ -12,15 +12,15 @@
 <div class="row">
     <div class="col-md-44">
         <p class="lead1">Алгоритм Прима</p>
-        <p><a class="btn btn-default" style="background: lightgreen;" href=Task1>Solve</a></p>
+        <p><a class="btn btn-default" style="background: #F6C8FC;" href=Task1>Начать</a></p>
     </div>
     <div class="col-md-44">
         <p class="lead1">Алгоритм Дейкстры</p>
-        <p><a class="btn btn-default" style="background: lightgreen;" href=Task2>Solve</a></p>
+        <p><a class="btn btn-default" style="background: #F6C8FC;" href=Task2>Начать</a></p>
     </div>
 
     <div class="col-md-44">
         <p class="lead1">Алгоритм Флойда</p>
-        <p><a class="btn btn-default" style=" background: lightgreen;" href=Task3>Solve</a></p>
+        <p><a class="btn btn-default" style=" background: #F6C8FC;" href=Task3>Начать</a></p>
     </div>
 </div>

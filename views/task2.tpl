@@ -1,5 +1,6 @@
 % rebase('layout.tpl', title=title, year=year)
 <!DOCTYPE html>
+    <link rel="stylesheet" type="text/css" href="/static/content/styles.css" />
 <div class="row">
     <div class="jumbotron">
     <h1 style="text-align:center;">Алгоритм Дейкстры</h1>

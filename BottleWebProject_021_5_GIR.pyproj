@@ -29,6 +29,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="algoritm_floyda.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app.py" />
     <Compile Include="floyd.py" />
     <Compile Include="routes.py" />
@@ -85,7 +88,7 @@
     <Content Include="views\layout.tpl" />
     <Content Include="views\task1.tpl" />
     <Content Include="views\task2.tpl" />
-    <Content Include="views\test3.tpl" />
+    <Content Include="views\task3.tpl" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env1\">

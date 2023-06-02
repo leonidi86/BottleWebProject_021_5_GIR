@@ -43,6 +43,7 @@
     var button = document.createElement("button");
     button.textContent = "Выполнить алгоритм Флойда";
     button.onclick = performFloydAlgorithm;
+    button.style.marginTop = "20px"; 
     tableContainer.appendChild(button);
 
     function performFloydAlgorithm() {
