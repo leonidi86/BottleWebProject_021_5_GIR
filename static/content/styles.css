@@ -13,10 +13,13 @@
     text-align:center;
 }
 
-
+#dropdown-scroll-area {
+    overflow-y: auto;
+    max-height: 200px;
+}
 
 .custom-button2 {
-    background-color: rgb(246, 200, 252);
+    background: center;
     cursor: pointer;
     color: rgb(255, 20, 147);
     padding: 10px;
@@ -25,13 +28,14 @@
     border-color: rgb(255, 20, 147);
     border-image: initial;
     min-width: 400px;
-    
+    margin: 0 auto;
 }
 
 input,
 select,
 textarea {
     min-width: 50px;
+    max-width: 50px;
 }
 
 .field-validation-error{
@@ -152,14 +156,14 @@ table{
     border-collapse: collapse;
 }
 
-    .table td,
-    .table th {
-        border: 1px solid #FF1493;
-        padding: 3px;
-        text-align: center;
-        background-color: #F6C8FC;
-    }
-
+.table td,
+.table th {
+    border: 1px solid #FF1493;
+    padding: 3px;
+    text-align: center;
+    background-color: rgb(161 128 166);
+    
+}
 td {
     border: 1px solid #FF1493;
     padding: 3px;
@@ -197,4 +201,13 @@ th {
         border: 1px solid black;
         padding: 8px;
         text-align: center;
+        border-color: rgb(255, 20, 147);
     }
+
+.color_rez {
+    background-color: rgb(161 128 166 / 27%);
+    text-align: left;
+    font-family: "Arial", sans-serif;
+    text-align: center;
+}
+

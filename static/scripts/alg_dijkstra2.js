@@ -1,19 +1,19 @@
-// Функция для создания таблицы ввода матрицы расстояний
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ С‚Р°Р±Р»РёС†С‹ РІРІРѕРґР° РјР°С‚СЂРёС†С‹ СЂР°СЃСЃС‚РѕСЏРЅРёР№
 function createMatrixTable(numVertices) {
     var matrixTable = document.getElementById("matrix-table");
 
-    // Очищаем таблицу
+    // РћС‡РёС‰Р°РµРј С‚Р°Р±Р»РёС†Сѓ
     matrixTable.innerHTML = "";
 
-    // Создаем заголовок таблицы
+    // РЎРѕР·РґР°РµРј Р·Р°РіРѕР»РѕРІРѕРє С‚Р°Р±Р»РёС†С‹
     var headerRow = document.createElement("tr");
     var headerCell = document.createElement("th");
-    headerCell.innerText = "Матрица расстояний";
+    headerCell.innerText = "РњР°С‚СЂРёС†Р° СЂР°СЃСЃС‚РѕСЏРЅРёР№";
     headerCell.colSpan = numVertices;
     headerRow.appendChild(headerCell);
     matrixTable.appendChild(headerRow);
 
-    // Создаем строки и ячейки таблицы
+    // РЎРѕР·РґР°РµРј СЃС‚СЂРѕРєРё Рё СЏС‡РµР№РєРё С‚Р°Р±Р»РёС†С‹
     for (var i = 0; i < numVertices; i++) {
         var row = document.createElement("tr");
 
@@ -30,19 +30,19 @@ function createMatrixTable(numVertices) {
         matrixTable.appendChild(row);
     }
 
-    // Добавляем класс "pink-table" к таблице
+    // Р”РѕР±Р°РІР»СЏРµРј РєР»Р°СЃСЃ "pink-table" Рє С‚Р°Р±Р»РёС†Рµ
     matrixTable.classList.add("pink-table");
 }
 
-// Обработчик события отправки формы
+// РћР±СЂР°Р±РѕС‚С‡РёРє СЃРѕР±С‹С‚РёСЏ РѕС‚РїСЂР°РІРєРё С„РѕСЂРјС‹
 document.getElementById("dijkstra-form").addEventListener("submit", function (event) {
     event.preventDefault();
 
-    // Получаем значения формы
+    // РџРѕР»СѓС‡Р°РµРј Р·РЅР°С‡РµРЅРёСЏ С„РѕСЂРјС‹
     var numVertices = parseInt(document.getElementById("num-vertices").value);
-    var sourceVertex = document.getElementById("source-vertex").value;
+    var sourceVertex = parseInt(document.getElementById("source-vertex").value);
 
-    // Получаем значения ячеек матрицы расстояний
+    // РџРѕР»СѓС‡Р°РµРј Р·РЅР°С‡РµРЅРёСЏ СЏС‡РµРµРє РјР°С‚СЂРёС†С‹ СЂР°СЃСЃС‚РѕСЏРЅРёР№
     var distanceMatrix = [];
 
     for (var i = 0; i < numVertices; i++) {
@@ -56,10 +56,10 @@ document.getElementById("dijkstra-form").addEventListener("submit", function (ev
         distanceMatrix.push(row);
     }
 
-    // Вызываем функцию решения алгоритма Дейкстры
+    // Р’С‹Р·С‹РІР°РµРј С„СѓРЅРєС†РёСЋ СЂРµС€РµРЅРёСЏ Р°Р»РіРѕСЂРёС‚РјР° Р”РµР№РєСЃС‚СЂС‹
     var shortestPaths = dijkstra(distanceMatrix, sourceVertex);
 
-    // Отображаем результат
+    // РћС‚РѕР±СЂР°Р¶Р°РµРј СЂРµР·СѓР»СЊС‚Р°С‚
     var resultDiv = document.getElementById("result");
     resultDiv.innerHTML = "<h3>Shortest Paths:</h3>";
 
@@ -72,11 +72,11 @@ document.getElementById("dijkstra-form").addEventListener("submit", function (ev
     }
 });
 
-// Обработчик изменения значения поля "Количество вершин"
+// РћР±СЂР°Р±РѕС‚С‡РёРє РёР·РјРµРЅРµРЅРёСЏ Р·РЅР°С‡РµРЅРёСЏ РїРѕР»СЏ "РљРѕР»РёС‡РµСЃС‚РІРѕ РІРµСЂС€РёРЅ"
 document.getElementById("num-vertices").addEventListener("change", function () {
     var numVertices = parseInt(this.value);
     createMatrixTable(numVertices);
 });
 
-// Инициализируем таблицу с одной ячейкой
+// РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј С‚Р°Р±Р»РёС†Сѓ СЃ РѕРґРЅРѕР№ СЏС‡РµР№РєРѕР№
 createMatrixTable(1);

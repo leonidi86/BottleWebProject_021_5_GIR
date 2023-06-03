@@ -8,8 +8,8 @@
     <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
 
     <script src="/static/scripts/alg_floyd.js"></script>
-    <script src="/static/scripts/alg_dijkstra1.js"></script>
-    <script src="/static/scripts/alg_dijkstra2.js"></script>
+    <script src="/static/scripts/alg_dijkstera1.js"></script>
+
 </head>
 <body>
 <header class="header">
@@ -27,8 +27,6 @@
     </header>
             
         {{!base}}
-                  
-    <script src="alg_dijkstra2.js"></script>
-
+                 
 </body>
 </html>
