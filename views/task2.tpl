@@ -33,7 +33,7 @@
     </form>
 
 
-           <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/static/scripts/alg_dijkstra1.js"></script>
 
 </div>
