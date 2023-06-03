@@ -32,6 +32,13 @@ function createMatrixTable(numVertices) {
                 input.type = "number";
                 input.name = "distance-cell-" + i + "-" + (j - 1);
                 input.required = true;
+                input.min = "0"; // Добавлено ограничение на неотрицательные значения
+
+                // Добавляем значение нуля по диагонали
+                if (i === j - 1) {
+                    input.value = "0";
+                }
+
                 cell.appendChild(input);
             }
 
@@ -53,6 +60,12 @@ document.getElementById("dijkstra-form").addEventListener("submit", function (ev
     var numVertices = parseInt(document.getElementById("num-vertices").value);
     var sourceVertex = parseInt(document.getElementById("source-vertex").value);
 
+    // Проверяем, что введенная вершина больше 2
+    if (numVertices <= 2) {
+        alert("Количество вершин должно быть больше 2.");
+        return;
+    }
+
     // Получаем значения ячеек матрицы расстояний
     var distanceMatrix = [];
 
@@ -61,10 +74,31 @@ document.getElementById("dijkstra-form").addEventListener("submit", function (ev
 
         for (var j = 0; j < numVertices; j++) {
             var input = document.getElementsByName("distance-cell-" + i + "-" + j)[0];
-            row.push(parseFloat(input.value));
+            var distance = parseFloat(input.value);
+
+            // Добавлена проверка на неотрицательные значения
+            if (distance < 0) {
+                alert("Введите неотрицательное значение для расстояния.");
+                return;
+            }
+
+            row.push(distance);
         }
 
         distanceMatrix.push(row);
+    }
+
+    // Заполняем матрицу зеркально
+    for (var i = 0; i < numVertices; i++) {
+        for (var j = 0; j < i; j++) {
+            distanceMatrix[i][j] = distanceMatrix[j][i];
+        }
+    }
+
+    // Проверяем существование введенной вершины
+    if (sourceVertex < 1 || sourceVertex > numVertices) {
+        alert("Введите существующую вершину.");
+        return;
     }
 
     // Вызываем функцию решения алгоритма Дейкстры
@@ -72,11 +106,11 @@ document.getElementById("dijkstra-form").addEventListener("submit", function (ev
 
     // Обновляем результат
     var resultDiv = document.getElementById("result");
-    resultDiv.innerHTML = "<h3>Кратчайшие пути:</h3>";
+    resultDiv.innerHTML = "<h2>Результат:</h2><br>";
 
     for (var i = 0; i < numVertices; i++) {
-        if (i !== sourceVertex) {
-            resultDiv.innerHTML += "<p>Кратчайший путь от " + sourceVertex + " до " + i + ": " +
+        if (i !== sourceVertex - 1) { // Исправлено сравнение с учетом смещения номеров вершин
+            resultDiv.innerHTML += "<p>Кратчайший путь от " + sourceVertex + " до " + (i + 1) + ": " +
                 shortestPaths[i].path.join(" -> ") + "<br>" +
                 "Общее расстояние: " + shortestPaths[i].distance + "</p>";
         }
@@ -96,7 +130,7 @@ function dijkstra(graph, source) {
     var distances = new Array(numVertices).fill(Number.MAX_VALUE);
     var shortestPaths = new Array(numVertices);
 
-    distances[source] = 0;
+    distances[source - 1] = 0; // Исправлено смещение номеров вершин
 
     for (var i = 0; i < numVertices; i++) {
         var minDistance = Number.MAX_VALUE;
@@ -128,7 +162,7 @@ function dijkstra(graph, source) {
     // Создаем массив кратчайших путей и расстояний
     for (var k = 0; k < numVertices; k++) {
         shortestPaths[k] = {
-            path: getPath(source, k),
+            path: getPath(source - 1, k), // Исправлено смещение номеров вершин
             distance: distances[k]
         };
     }
