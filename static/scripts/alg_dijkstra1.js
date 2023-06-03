@@ -5,7 +5,6 @@ function createMatrixTable(numVertices) {
 
     // Clear the table
     matrixTable.innerHTML = "";
-
     // Create the table header
     var headerRow = document.createElement("tr");
     var headerCell = document.createElement("th");
@@ -76,6 +75,82 @@ function createMatrixTable(numVertices) {
     matrixTable.classList.add("pink-table");
 }
 
+// Инициализация таблицы с 2 вершинами
+createMatrixTable(2);
+
+// Добавление кнопки "Заполнить пустые ячейки"
+var fillEmptyCellsButton = document.createElement("button");
+fillEmptyCellsButton.setAttribute("type", "button");
+fillEmptyCellsButton.setAttribute("id", "fill-empty-cells");
+fillEmptyCellsButton.setAttribute("class", "custom-button2");
+fillEmptyCellsButton.innerText = "Заполнить пустые ячейки";
+
+// Вставка кнопки после таблицы
+var matrixTable = document.getElementById("matrix-table");
+matrixTable.parentNode.insertBefore(fillEmptyCellsButton, matrixTable.nextSibling);
+
+// Удаление пустых строк после кнопки
+var emptyRows = document.querySelectorAll("br");
+emptyRows.forEach(function (row) {
+    matrixTable.parentNode.removeChild(row);
+});
+// Добавление обработчика события на кнопку "Заполнить пустые ячейки"
+document.getElementById("fill-empty-cells").addEventListener("click", function () {
+    var inputCells = document.querySelectorAll('input[type="number"]');
+
+    for (var i = 0; i < inputCells.length; i++) {
+        if (inputCells[i].value.trim() === "") {
+            inputCells[i].value = "10000";
+        }
+    }
+});
+// Обработчик события клика на кнопку "Пример заполнения"
+document.getElementById("example-button").addEventListener("click", function () {
+    var numVertices = parseInt(document.getElementById("num-vertices").value);
+
+    // Проверяем, что введено количество вершин
+    if (!isNaN(numVertices) && numVertices > 0) {
+        fillMatrixWithExampleValues(numVertices);
+    } else {
+        alert("Введите корректное количество вершин.");
+    }
+});
+
+// Функция для заполнения матрицы примерными значениями
+function fillMatrixWithExampleValues(numVertices) {
+    var inputCells = document.querySelectorAll('input[name^="distance-cell-"]');
+    var exampleMatrix = getExampleMatrix(numVertices);
+
+    for (var i = 0; i < inputCells.length; i++) {
+        var row = parseInt(inputCells[i].name.split("-")[2]);
+        var column = parseInt(inputCells[i].name.split("-")[3]);
+
+        inputCells[i].value = exampleMatrix[row][column];
+    }
+}
+
+// Функция для получения примерной матрицы расстояний
+function getExampleMatrix(numVertices) {
+    var exampleMatrix = [];
+
+    for (var i = 0; i < numVertices; i++) {
+        var row = [];
+
+        for (var j = 0; j < numVertices; j++) {
+            if (i === j) {
+                row.push(0); // На диагонали - нули
+            } else if (i < j) {
+                row.push(i + j - 1); // Верхний треугольник - сумма индексов
+            } else {
+                row.push(j + i + 1); // Нижний треугольник - сумма индексов
+            }
+        }
+
+        exampleMatrix.push(row);
+    }
+
+    return exampleMatrix;
+}
 // Обработчик события отправки формы
 document.getElementById("dijkstra-form").addEventListener("submit", function (event) {
     event.preventDefault();
@@ -98,24 +173,10 @@ document.getElementById("dijkstra-form").addEventListener("submit", function (ev
 
         for (var j = 0; j < numVertices; j++) {
             var input = document.getElementsByName("distance-cell-" + i + "-" + j)[0];
-            var distance = parseFloat(input.value);
+            var distance = parseFloat(input.value.trim());
 
-            // Проверяем на пустое значение поля и присваиваем значение бесконечности
-            if (input.value === "") {
-                if (i === j) {
-                    distance = 0;
-                    input.value = "0";
-                } else {
-                    distance = Infinity;
-                    input.value = "∞";
-                }
-            } else {
-                // Добавлена проверка на неотрицательные значения
-                if (distance < 0 || isNaN(distance)) {
-                    alert("Введите неотрицательное числовое значение для расстояния.");
-                    return;
-                }
-            }
+            // Проверяем, является ли значение пустым и устанавливаем значение бесконечности
+            distance = input.value.trim() === "" ? 9999 : parseInt(input.value.trim(), 10);
 
             row.push(distance);
         }
@@ -129,15 +190,6 @@ document.getElementById("dijkstra-form").addEventListener("submit", function (ev
         return;
     }
 
-    // Заполняем отсутствующие ячейки значением бесконечности
-    for (var i = 0; i < numVertices; i++) {
-        for (var j = 0; j < numVertices; j++) {
-            if (i !== j && distanceMatrix[i][j] === 0) {
-                distanceMatrix[i][j] = Infinity;
-            }
-        }
-    }
-
     // Вызываем функцию решения алгоритма Дейкстры
     var shortestPaths = dijkstra(distanceMatrix, sourceVertex);
 
@@ -147,14 +199,17 @@ document.getElementById("dijkstra-form").addEventListener("submit", function (ev
 
     for (var i = 0; i < numVertices; i++) {
         if (i !== sourceVertex - 1) {
-            // Исправлено сравнение с учетом смещения номеров вершин
+            var path = shortestPaths[i].path.map(function (vertex) {
+                return vertex + 1;
+            });
+
             resultDiv.innerHTML +=
                 "<p>Кратчайший путь от " +
                 sourceVertex +
                 " до " +
                 (i + 1) +
                 ": " +
-                shortestPaths[i].path.join(" -> ") +
+                path.join(" -> ") +
                 "<br>" +
                 "Общее расстояние: " +
                 shortestPaths[i].distance +
@@ -162,7 +217,6 @@ document.getElementById("dijkstra-form").addEventListener("submit", function (ev
         }
     }
 });
-
 // Обработчик изменения значения поля "Количество вершин"
 document.getElementById("num-vertices").addEventListener("change", function () {
     var numVertices = parseInt(this.value);

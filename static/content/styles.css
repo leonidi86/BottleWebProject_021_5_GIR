@@ -27,15 +27,15 @@
     border-style: solid;
     border-color: rgb(255, 20, 147);
     border-image: initial;
-    min-width: 400px;
-    margin: 0 auto;
+    min-width: 560px;
 }
+
 
 input,
 select,
 textarea {
-    min-width: 50px;
-    max-width: 50px;
+    max-width: 80px;
+    text-align: center;
 }
 
 .field-validation-error{
