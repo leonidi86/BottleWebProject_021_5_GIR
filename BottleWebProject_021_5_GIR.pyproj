@@ -30,6 +30,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.py" />
+    <Compile Include="dijkstra.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="floydic.py">
       <SubType>Code</SubType>
     </Compile>
