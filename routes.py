@@ -4,7 +4,6 @@ Routes and views for the bottle application.
 
 from bottle import route, view
 from datetime import datetime
-from floyd import floyd_warshall
 
 @route('/')
 @route('/home')
@@ -61,6 +60,16 @@ def about():
 
     return dict(
         title='Task 3',
+        message='Ivanov',
+        year=datetime.now().year
+    )
+
+@route('/Floyd23')
+@view('floyd23')
+def about():
+
+    return dict(
+        title='Task 4',
         message='Ivanov',
         year=datetime.now().year
     )

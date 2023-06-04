@@ -29,11 +29,10 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="algoritm_floyda.py">
+    <Compile Include="app.py" />
+    <Compile Include="floydic.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app.py" />
-    <Compile Include="floyd.py" />
     <Compile Include="routes.py" />
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +49,7 @@
     <Content Include="static\content\bootstrap.min.css" />
     <Content Include="static\content\site.css" />
     <Content Include="static\content\styles.css" />
+    <Content Include="static\content\Styles23.css" />
     <Content Include="static\images\evnrss.png" />
     <Content Include="static\images\fon.png" />
     <Content Include="static\fonts\glyphicons-halflings-regular.eot" />

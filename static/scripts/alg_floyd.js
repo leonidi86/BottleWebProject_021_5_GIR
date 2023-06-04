@@ -43,8 +43,12 @@
     var button = document.createElement("button");
     button.textContent = "Выполнить алгоритм Флойда";
     button.onclick = performFloydAlgorithm;
-    button.style.marginTop = "20px"; 
+    button.style.marginTop = "20px";
     tableContainer.appendChild(button);
+
+    var resultContainer = document.createElement("div");
+    resultContainer.classList.add("result-container");
+    tableContainer.appendChild(resultContainer);
 
     function performFloydAlgorithm() {
         var weights = []; // Массив для хранения весов ребер
@@ -54,12 +58,18 @@
             weights[i] = [];
 
             for (var j = 0; j < n; j++) {
-                var inputValue = parseInt(inputs[i][j].value);
-                if (isNaN(inputValue)) {
-                    alert("Введите числовые значения в матрицу весов!");
-                    return;
+                var inputValue = inputs[i][j].value.trim(); // Удаляем лишние пробелы в начале и конце
+
+                if (inputValue === "∞" || inputValue.toLowerCase() === "inf") {
+                    weights[i][j] = Infinity; // Присваиваем бесконечное значение
+                } else {
+                    var numericValue = parseInt(inputValue);
+                    if (isNaN(numericValue)) {
+                        alert("Введите числовые значения в матрицу весов!");
+                        return;
+                    }
+                    weights[i][j] = numericValue;
                 }
-                weights[i][j] = inputValue;
             }
         }
 
@@ -86,26 +96,25 @@
             }
         }
 
+
         // Выполнение алгоритма Флойда
         for (var k = 0; k < n; k++) {
             for (var i = 0; i < n; i++) {
                 for (var j = 0; j < n; j++) {
                     if (distances[i][k] + distances[k][j] < distances[i][j]) {
                         distances[i][j] = distances[i][k] + distances[k][j];
-                        paths[i][j] = paths[k][j];
+                        paths[i][j] = paths[i][k]; // Изменение этой строки
                     }
                 }
             }
         }
 
+        // Удаление предыдущего результата
+        resultContainer.innerHTML = "";
+
         // Вывод результатов
-        var resultContainer = document.createElement("div");
-        resultContainer.classList.add("result-container");
-
-
         var distanceMatrixHeading = document.createElement("h2");
         distanceMatrixHeading.textContent = "Матрица кратчайших расстояний:";
-
         resultContainer.appendChild(distanceMatrixHeading);
 
         var distanceMatrixTable = document.createElement("table");
@@ -145,7 +154,5 @@
             pathMatrixTable.appendChild(row);
         }
         resultContainer.appendChild(pathMatrixTable);
-
-        tableContainer.appendChild(resultContainer);
     }
 }
