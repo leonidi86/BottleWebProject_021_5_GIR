@@ -33,6 +33,8 @@
     <Compile Include="floydic.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app.py" />
+    <Compile Include="floyd.py" />
     <Compile Include="routes.py" />
   </ItemGroup>
   <ItemGroup>
