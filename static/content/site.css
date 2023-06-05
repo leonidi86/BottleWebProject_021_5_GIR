@@ -14,12 +14,6 @@ body {
 }
 
 
-input,
-select,
-textarea {
-    max-width: 150px;
-}
-
 .field-validation-error {
     color: #b94a48;
 }
