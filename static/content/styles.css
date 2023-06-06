@@ -21,20 +21,20 @@
 .custom-button2 {
     background: center;
     cursor: pointer;
-    color: rgb(255, 20, 147);
+    color: white;
     padding: 10px;
     border-width: 2px;
     border-style: solid;
     border-color: rgb(255, 20, 147);
     border-image: initial;
-    min-width: 560px;
+    min-width: 573px;
+    background-color: rgb(161 128 166);
 }
 
 
 input,
 select,
 textarea {
-    max-width: 80px;
     text-align: center;
 }
 

@@ -19,6 +19,9 @@
     <Name>BottleWebProject_021_5_GIR</Name>
     <RootNamespace>BottleWebProject_021_5_GIR</RootNamespace>
     <InterpreterId>MSBuild|env2|$(MSBuildProjectFullPath)</InterpreterId>
+    <TestFramework>unittest</TestFramework>
+    <UnitTestPattern>test2.py</UnitTestPattern>
+    <UnitTestRootDirectory>.</UnitTestRootDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,6 +42,9 @@
     <Compile Include="app.py" />
     <Compile Include="floyd.py" />
     <Compile Include="routes.py" />
+    <Compile Include="test2.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="static\" />

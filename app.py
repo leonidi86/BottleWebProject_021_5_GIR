@@ -1,14 +1,14 @@
-"""
-This script runs the application using a development server.
-"""
-
 import bottle
 import os
 import sys
 
+# Add the current directory to sys.path
+sys.path.insert(0, os.path.dirname(__file__))
+
 # routes contains the HTTP handlers for our server and must be imported.
 import routes
-from dijkstra import *
+
+
 if '--debug' in sys.argv[1:] or 'SERVER_DEBUG' in os.environ:
     # Debug mode will enable more verbose output in the console window.
     # It must be set at the beginning of the script.

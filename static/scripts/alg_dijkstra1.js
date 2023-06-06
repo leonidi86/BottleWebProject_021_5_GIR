@@ -1,290 +1,173 @@
-var shortestPathPredecessors = [];
+function fillMatrix() {
+    setMatrixInputSize(); // Изменяем размер матрицы на 3
+    var numVertices = 3; // Устанавливаем количество вершин равным 3
+    document.getElementById("num-vertices").value = numVertices;
+    var matrix = document.getElementById("inputMatrix");
+    matrix.value = "0 2 10000\n2 0 7\n10000 7 0";
 
-function createMatrixTable(numVertices) {
-    var matrixTable = document.getElementById("matrix-table");
-
-    // Clear the table
-    matrixTable.innerHTML = "";
-    // Create the table header
-    var headerRow = document.createElement("tr");
-    var headerCell = document.createElement("th");
-    headerCell.innerText = "Матрица расстояний";
-    headerCell.colSpan = numVertices + 1;
-    headerRow.appendChild(headerCell);
-    matrixTable.appendChild(headerRow);
-
-    // Create the column headers
-    var columnHeaderRow = document.createElement("tr");
-    var emptyCell = document.createElement("td");
-    columnHeaderRow.appendChild(emptyCell);
-
-    for (var i = 1; i <= numVertices; i++) {
-        var columnHeaderCell = document.createElement("th");
-        columnHeaderCell.innerText = i;
-        columnHeaderRow.appendChild(columnHeaderCell);
-    }
-
-    matrixTable.appendChild(columnHeaderRow);
-
-    // Create the rows and cells of the table
-    for (var i = 0; i < numVertices; i++) {
-        var row = document.createElement("tr");
-
-        for (var j = 0; j <= numVertices; j++) {
-            var cell = document.createElement("td");
-
-            if (j === 0) {
-                // Create a cell with the vertex number
-                var vertexNumber = i + 1;
-                cell.innerText = vertexNumber;
-            } else {
-                // Create a cell with the distance input field
-                var input = document.createElement("input");
-                input.type = "number";
-                input.name = "distance-cell-" + i + "-" + (j - 1);
-                input.required = true;
-                input.min = "0"; // Added restriction for non-negative values
-
-                // Add a value of zero on the diagonal
-                if (i === j - 1) {
-                    input.value = "0";
-                }
-
-                // Add an event listener to mirror the input value
-                input.addEventListener("input", function () {
-                    var row = parseInt(this.name.split("-")[2]);
-                    var column = parseInt(this.name.split("-")[3]);
-
-                    var mirroredInput = document.querySelector(
-                        'input[name="distance-cell-' + column + '-' + row + '"]'
-                    );
-
-                    mirroredInput.value = this.value;
-                });
-
-                cell.appendChild(input);
-            }
-
-            row.appendChild(cell);
-        }
-
-        matrixTable.appendChild(row);
-    }
-
-    // Add the "pink-table" class to the table
-    matrixTable.classList.add("pink-table");
-}
-
-// Инициализация таблицы с 2 вершинами
-createMatrixTable(2);
-
-// Добавление кнопки "Заполнить пустые ячейки"
-var fillEmptyCellsButton = document.createElement("button");
-fillEmptyCellsButton.setAttribute("type", "button");
-fillEmptyCellsButton.setAttribute("id", "fill-empty-cells");
-fillEmptyCellsButton.setAttribute("class", "custom-button2");
-fillEmptyCellsButton.innerText = "Заполнить пустые ячейки";
-
-// Вставка кнопки после таблицы
-var matrixTable = document.getElementById("matrix-table");
-matrixTable.parentNode.insertBefore(fillEmptyCellsButton, matrixTable.nextSibling);
-
-// Удаление пустых строк после кнопки
-var emptyRows = document.querySelectorAll("br");
-emptyRows.forEach(function (row) {
-    matrixTable.parentNode.removeChild(row);
-});
-// Добавление обработчика события на кнопку "Заполнить пустые ячейки"
-document.getElementById("fill-empty-cells").addEventListener("click", function () {
-    var inputCells = document.querySelectorAll('input[type="number"]');
-
-    for (var i = 0; i < inputCells.length; i++) {
-        if (inputCells[i].value.trim() === "") {
-            inputCells[i].value = "10000";
-        }
-    }
-});
-// Обработчик события клика на кнопку "Пример заполнения"
-document.getElementById("example-button").addEventListener("click", function () {
-    var numVertices = parseInt(document.getElementById("num-vertices").value);
-
-    // Проверяем, что введено количество вершин
-    if (!isNaN(numVertices) && numVertices > 0) {
-        fillMatrixWithExampleValues(numVertices);
-    } else {
-        alert("Введите корректное количество вершин.");
-    }
-});
-
-// Функция для заполнения матрицы примерными значениями
-function fillMatrixWithExampleValues(numVertices) {
-    var inputCells = document.querySelectorAll('input[name^="distance-cell-"]');
-    var exampleMatrix = getExampleMatrix(numVertices);
-
-    for (var i = 0; i < inputCells.length; i++) {
-        var row = parseInt(inputCells[i].name.split("-")[2]);
-        var column = parseInt(inputCells[i].name.split("-")[3]);
-
-        inputCells[i].value = exampleMatrix[row][column];
+    // Проверка на пустые поля
+    if (!matrix.value.trim()) {
+        alert("Матрица не может быть пустой!");
+        return;
     }
 }
-
-// Функция для получения примерной матрицы расстояний
-function getExampleMatrix(numVertices) {
-    var exampleMatrix = [];
-
-    for (var i = 0; i < numVertices; i++) {
-        var row = [];
-
-        for (var j = 0; j < numVertices; j++) {
-            if (i === j) {
-                row.push(0); // На диагонали - нули
-            } else if (i < j) {
-                row.push(i + j - 1); // Верхний треугольник - сумма индексов
-            } else {
-                row.push(j + i + 1); // Нижний треугольник - сумма индексов
-            }
-        }
-
-        exampleMatrix.push(row);
-    }
-
-    return exampleMatrix;
-}
-// Обработчик события отправки формы
-document.getElementById("dijkstra-form").addEventListener("submit", function (event) {
+document.getElementById("fillMatrixButton").addEventListener("click", fillMatrix);
+function runDijkstraAlgorithm() {
     event.preventDefault();
+    var inputMatrix = document.getElementById("inputMatrix").value;
 
-    // Получаем значения формы
-    var numVertices = parseInt(document.getElementById("num-vertices").value);
-    var sourceVertex = parseInt(document.getElementById("source-vertex").value);
+    // Проверка на пустые поля
+    if (!inputMatrix.trim()) {
+        alert("Матрица не может быть пустой!");
+        return;
+    };
+    var matrixRows = inputMatrix.trim().split("\n");
+    var matrix = [];
+    var numberRegex = /^\d+$/; // Регулярное выражение для положительных целых чисел
 
-    // Проверяем, что введенная вершина больше 1
-    if (numVertices < 2) {
-        alert("Количество вершин должно быть больше 1.");
+    for (var i = 0; i < matrixRows.length; i++) {
+        var row = matrixRows[i].trim().split(/\s+/);
+        if (row.length !== matrixRows.length) {
+            alert("Количество значений в строке " + (i + 1) + " не соответствует размеру матрицы!");
+            return;
+        }
+        for (var j = 0; j < row.length; j++) {
+            if (!numberRegex.test(row[j])) {
+                alert("Матрица должна содержать только положительные числа!");
+                return;
+            }
+            row[j] = parseInt(row[j]);
+            if (row[j] < 0) {
+                alert("Матрица должна содержать только положительные числа!");
+                return;
+            }
+        }
+        matrix.push(row);
+    }
+    var n = matrix.length;
+
+    // Проверка на указание стартовой вершины
+    var startVertex = parseInt(document.getElementById("startVertex").value);
+    if (isNaN(startVertex)) {
+        alert("Не указана стартовая вершина!");
+        return;
+    }
+    startVertex -= 1; // Преобразуем внутреннее представление вершины (от 0 до n-1)
+
+    if (startVertex < 0 || startVertex >= n) {
+        alert("Выбранная вершина находится за пределами доступных вершин!");
         return;
     }
 
-    // Получаем значения ячеек матрицы расстояний
-    var distanceMatrix = [];
+    // Check if there are zeros on the diagonal
+    var hasZerosOnDiagonal = checkZerosOnDiagonal(matrix);
+    if (!hasZerosOnDiagonal) {
+        alert("В матрице должны быть нули на диагонали!");
+        return;
+    }
+    var isMirrored = checkMatrixMirrored(matrix);
+    if (!isMirrored) {
+        alert("Матрица должна быть заполнена симметрично!");
+        return;
+    }
+    var n = matrix.length;
+    var dist = Array(n).fill(Number.MAX_SAFE_INTEGER);
+    var visited = Array(n).fill(false);
+    var path = Array(n);
 
-    for (var i = 0; i < numVertices; i++) {
-        var row = [];
+    dist[startVertex] = 0;
 
-        for (var j = 0; j < numVertices; j++) {
-            var input = document.getElementsByName("distance-cell-" + i + "-" + j)[0];
-            var distance = parseFloat(input.value.trim());
+    for (var count = 0; count < n - 1; count++) {
+        var minDist = Number.MAX_SAFE_INTEGER;
+        var minVertex = -1;
 
-            // Проверяем, является ли значение пустым и устанавливаем значение бесконечности
-            distance = input.value.trim() === "" ? 9999 : parseInt(input.value.trim(), 10);
-
-            row.push(distance);
+        for (var v = 0; v < n; v++) {
+            if (!visited[v] && dist[v] <= minDist) {
+                minDist = dist[v];
+                minVertex = v;
+            }
         }
 
-        distanceMatrix.push(row);
+        visited[minVertex] = true;
+
+        for (var v = 0; v < n; v++) {
+            if (
+                !visited[v] &&
+                matrix[minVertex][v] !== 0 &&
+                dist[minVertex] !== Number.MAX_SAFE_INTEGER &&
+                dist[minVertex] + matrix[minVertex][v] < dist[v]
+            ) {
+                dist[v] = dist[minVertex] + matrix[minVertex][v];
+                path[v] = minVertex;
+            }
+        }
     }
 
-    // Проверяем существование введенной вершины
-    if (sourceVertex < 1 || sourceVertex > numVertices) {
-        alert("Введите существующую вершину.");
-        return;
-    }
+    var outputResult = document.getElementById("outputResult");
+    outputResult.innerHTML = "";
 
-    // Вызываем функцию решения алгоритма Дейкстры
-    var shortestPaths = dijkstra(distanceMatrix, sourceVertex);
-
-    // Обновляем результат
-    var resultDiv = document.getElementById("result");
-    resultDiv.innerHTML = "<h2>Результат:</h2><br>";
-
-    for (var i = 0; i < numVertices; i++) {
-        if (i !== sourceVertex - 1) {
-            var path = shortestPaths[i].path.map(function (vertex) {
-                return vertex + 1;
-            });
-
-            resultDiv.innerHTML +=
-                "<p>Кратчайший путь от " +
-                sourceVertex +
+    for (var i = 0; i < dist.length; i++) {
+        if (i !== startVertex && dist[i] !== Number.MAX_SAFE_INTEGER) {
+            var resultText = document.createElement("p");
+            var shortestPath = [];
+            var currentVertex = i;
+            while (currentVertex !== startVertex) {
+                shortestPath.push(String(currentVertex + 1));
+                currentVertex = path[currentVertex];
+            }
+            shortestPath.push(String(startVertex + 1));
+            resultText.textContent =
+                "Кратчайший путь от " +
+                (startVertex + 1) +
                 " до " +
                 (i + 1) +
                 ": " +
-                path.join(" -> ") +
-                "<br>" +
-                "Общее расстояние: " +
-                shortestPaths[i].distance +
-                "</p>";
+                shortestPath.reverse().join(" -> ");
+            outputResult.appendChild(resultText);
+            resultText = document.createElement("p");
+            resultText.textContent = "Общее расстояние: " + dist[i];
+            outputResult.appendChild(resultText);
+            var lineBreak = document.createElement("br");
+            outputResult.appendChild(lineBreak);
         }
     }
-});
-// Обработчик изменения значения поля "Количество вершин"
-document.getElementById("num-vertices").addEventListener("change", function () {
-    var numVertices = parseInt(this.value);
-    createMatrixTable(numVertices);
-});
+}
 
-// Функция для решения алгоритма Дейкстры
-function dijkstra(graph, source) {
-    var numVertices = graph.length;
-    var visited = new Array(numVertices).fill(false);
-    var distances = new Array(numVertices).fill(Number.MAX_VALUE);
-    var shortestPaths = new Array(numVertices);
-
-    distances[source - 1] = 0; // Исправлено смещение номеров вершин
-
-    for (var i = 0; i < numVertices; i++) {
-        var minDistance = Number.MAX_VALUE;
-        var minIndex = -1;
-
-        // Находим вершину с минимальным расстоянием
-        for (var v = 0; v < numVertices; v++) {
-            if (!visited[v] && distances[v] < minDistance) {
-                minDistance = distances[v];
-                minIndex = v;
-            }
+function checkZerosOnDiagonal(matrix) {
+    for (var i = 0; i < matrix.length; i++) {
+        if (matrix[i][i] !== 0) {
+            return false;
         }
+    }
+    return true;
+}
 
-        if (minIndex === -1) {
-            break;
-        }
+function setMatrixInputSize() {
+    var numVertices = parseInt(
+        document.getElementById("num-vertices").value
+    );
+    var height = 102 + (numVertices - 3) * 20;
+    var inputMatrix = document.getElementById("inputMatrix");
+    inputMatrix.style.width = height + 50 + "px";
+    inputMatrix.style.height = height + "px";
 
-        visited[minIndex] = true;
+    inputMatrix.value = ""; // Очищаем значение матрицы
+}
 
-        // Обновляем расстояния до смежных вершин
-        for (var j = 0; j < numVertices; j++) {
-            if (
-                !visited[j] &&
-                graph[minIndex][j] > 0 &&
-                distances[minIndex] + graph[minIndex][j] < distances[j]
-            ) {
-                distances[j] = distances[minIndex] + graph[minIndex][j];
-                shortestPathPredecessors[j] = minIndex;
+document
+    .getElementById("num-vertices")
+    .addEventListener("change", setMatrixInputSize);
+setMatrixInputSize();
+
+function checkMatrixMirrored(matrix) {
+    var n = matrix.length;
+    for (var i = 0; i < n; i++) {
+        for (var j = 0; j < i; j++) {
+            if (matrix[i][j] !== matrix[j][i]) {
+                return false;
             }
         }
     }
-
-    // Создаем массив кратчайших путей и расстояний
-    for (var k = 0; k < numVertices; k++) {
-        shortestPaths[k] = {
-            path: getPath(source - 1, k), // Исправлено смещение номеров вершин
-            distance: distances[k],
-        };
-    }
-
-    return shortestPaths;
+    return true;
 }
 
-// Функция для получения кратчайшего пути от начальной вершины до конечной
-function getPath(source, destination) {
-    var path = [];
-    var currentVertex = destination;
-
-    while (currentVertex !== source) {
-        path.unshift(currentVertex);
-        currentVertex = shortestPathPredecessors[currentVertex];
-    }
-
-    path.unshift(source);
-
-    return path;
-}
